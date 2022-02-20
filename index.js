@@ -13,18 +13,31 @@ const client = new Client({
 const dotenv = require('dotenv');
 dotenv.config();
 
-//message to be posted in the channel. 
-const role_assign_message = 'If you are from Kadan server react to <process.env.Y_EMOJI_ID>, if you are not from Kadan react to <process.env.N_EMOJI_ID> ';
-
-const channel = client.channels.cache.get(process.env.CHANNEL_ID);
-channel.send(role_assign_message);
-
+//bot token
 const token = process.env.TOKEN
+
+//message to be posted in the channel. 
+// const role_assign_message = 'If you are from Kadan server react to <process.env.Y_EMOJI_ID>, if you are not from Kadan react to <process.env.N_EMOJI_ID> ';
 
 
 //When the client is ready, run this code (only once)
 client.once('ready', ()=> {
     console.log('Ready');
+});
+
+client.on('messageReactionAdd', async(reaction, user, message)=>{
+    await reaction.fetch();
+    
+    if(!reaction.message.id(process.env.KADAN_CHECK)){
+        return
+    }
+    else if(reaction.message.id(process.env.KADAN_CHECK)){
+        
+        if (reaction.emoji.id(process.env.Y_EMOJI_ID)) {
+            reaction.users.cache
+        }
+    }
+
 });
 
 //Login to Discord with your client's token
