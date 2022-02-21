@@ -25,7 +25,7 @@ client.once('ready', ()=> {
     console.log('Ready');
 });
 
-client.on('messageReactionAdd', async(reaction, user, message)=>{
+client.on('messageReactionAdd', async(reaction, user)=>{
     await reaction.fetch();
     
     if(!reaction.message.id(process.env.KADAN_CHECK)){
@@ -34,7 +34,12 @@ client.on('messageReactionAdd', async(reaction, user, message)=>{
     else if(reaction.message.id(process.env.KADAN_CHECK)){
         
         if (reaction.emoji.id(process.env.Y_EMOJI_ID)) {
-            reaction.users.cache
+            reaction.message.guild.members.cache.get(user.id).roles.add(process.env.KADAN_ROLE);
+            reaction.message.guild.members.cache.get(user.id).roles.remove(process.env.NOT_KADAN_ROLE);
+        }
+        if (reaction.emoji.id(process.env.N_EMOJI_ID)) {
+            reaction.message.guild.members.cache.get(user.id).roles.add(process.env.NOT_KADAN_ROLE);
+            reaction.message.guild.members.cache.get(user.id).roles.remove(process.env.KADAN_ROLE);
         }
     }
 
