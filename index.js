@@ -18,8 +18,8 @@ const token = process.env.TOKEN;
 
 //Discord Ids saved into consts
 const messageID='944644957975748658';
-const emoji_Y=':regional_indicator_y:';
-const emoji_N=':regional_indicator_n:';
+const emoji_Y='🇾';
+const emoji_N='🇳';
 const kadan_role='944655004441128980';
 const not_kadan_role='943437093009498162';
 
@@ -33,9 +33,15 @@ client.once('ready', ()=> {
     console.log('Ready');
 });
 
+
+
 client.on('messageReactionAdd', async(reaction, user)=>{
+    
+    const channel_cached = client.channels.cache.get('943773578363559967');
+    const msg = channel_cached.messages.cache.get
     await reaction.fetch();
     console.log(reaction);
+    console.log('the messasge reaction add works');
 
     if (reaction.emoji.name === emoji_Y) {
          reaction.message.guild.members.cache.get(user.id).roles.add(kadan_role);
