@@ -24,18 +24,29 @@ const kadan_role='944655004441128980';
 const not_kadan_role='943437093009498162';
 
 
-//message to be posted in the channel. 
-// const role_assign_message = 'If you are from Kadan server react to <process.env.Y_EMOJI_ID>, if you are not from Kadan react to <process.env.N_EMOJI_ID> ';
-
-
 //When the client is ready, run this code (only once)
-client.once('ready', ()=> {
+client.once('ready', async()=> {
+
     console.log('Ready');
+    const cached_channel = client.channels.fetch('943773578363559967');
+    const messages_cached = (await cached_channel).
+   
+    // console.log(cached_channel);
+    console.log(message);
 });
 
+//welcome message for new members
+client.on('guildMemberAdd',(member)=> {
+    const rules_channel = '937426305631277156';
+    const welcome_channel = '937417387047804998';
+    const roles_channel = '943773578363559967';
+    const welcome_message = `Hey, <@${member.id}> welcome to Kalandra. Be sure to check <#${roles_channel}> to assign roles and the <#${rules_channel}> `;
+    member.guild.channels.fetch(welcome_channel).then((channel)=> {
+        channel.send(welcome_message)
+    });
+});
 
-
-client.on('messageReactionAdd', async(reaction, user)=>{
+client.on('messageReactionAdd', async(channel,reaction, user)=>{
     
     const channel_cached = client.channels.cache.get('943773578363559967');
     const msg = channel_cached.messages.cache.get
@@ -55,8 +66,6 @@ client.on('messageReactionAdd', async(reaction, user)=>{
         console.log('not kadan role assigned and kadan role removed');
     }
     
-
-
     // if(!reaction.message.id(messageID)){
     //     return
     // }
