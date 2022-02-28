@@ -23,7 +23,7 @@ const emoji_N='🇳';
 const kadan_role='944655004441128980';
 const not_kadan_role='943437093009498162';
 
-
+//continue watching for slash commands https://www.youtube.com/watch?v=JdpJiPlVeaU
 
 //When the client is ready, run this code (only once)
 client.once('ready', async()=> {
@@ -67,9 +67,6 @@ client.on('messageReactionAdd', async(reaction, user)=>{
     
 });
 
-client.on('ready', () => {
-    const guildId = '937398878758637568';
-});
 
 //Login to Discord with your client's token
 client.login(token);
